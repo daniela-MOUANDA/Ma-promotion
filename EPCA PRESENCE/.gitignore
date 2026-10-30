@@ -1,0 +1,22 @@
+node_modules
+dist
+.env
+.env.local
+*.local
+.DS_Store
+.vite
+
+# Flutter
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.idea/
+mobile/.vscode/
+mobile/build/
+mobile/.packages
+mobile/pubspec.lock
+mobile/**/*.iml
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/ios/Pods/
+mobile/ios/.symlinks/

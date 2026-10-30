@@ -1,0 +1,310 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+
+  /* Bleu marine — thème unique */
+  --color-ink: #061224;
+  --color-ink-soft: #5b6b82;
+  --color-wash: #f1f4f9;
+  --color-paper: #ffffff;
+  --color-paper-2: #f6f8fc;
+  --color-line: #d9e1ee;
+  --color-ok: #2d8a6a;
+
+  --color-navy-950: #040b17;
+  --color-navy-900: #081a33;
+  --color-navy-800: #0d2a52;
+  --color-navy-700: #143b72;
+  --color-navy-600: #1c4f93;
+  --color-navy-50: #f1f4f9;
+
+  --color-sky: #2f6fe0;
+  --color-glow: #7fb0ff;
+  --color-accent: #2f6fe0;
+  --color-accent-soft: #dce8fb;
+
+  /* Compat anciennes classes (admin) */
+  --color-canvas: #f1f4f9;
+  --color-hairline: #d9e1ee;
+  --color-brand-50: #e9f0fb;
+  --color-brand-100: #d3e1f6;
+  --color-brand-200: #a9c4ee;
+  --color-brand-300: #6f9be0;
+  --color-brand-400: #3f78d6;
+  --color-brand-500: #1c4f93;
+  --color-brand-600: #143b72;
+  --color-brand-700: #081a33;
+  --color-gold: #5b7fb5;
+  --color-gold-soft: #e1eaf7;
+  --color-forest: #2d8a6a;
+  --color-mint: #2d8a6a;
+  --color-sunset: #5b7fb5;
+  --color-blush: #c23b55;
+
+  --shadow-card: 0 1px 0 rgba(6, 18, 36, 0.04), 0 20px 44px -30px rgba(6, 18, 36, 0.3);
+  --shadow-float: 0 32px 80px -36px rgba(6, 18, 36, 0.45);
+  --shadow-glow: 0 10px 40px -12px rgba(47, 111, 224, 0.55);
+}
+
+html {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--color-wash);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--color-navy-700);
+  width: 1rem;
+  height: 1rem;
+}
+
+::selection {
+  background: var(--color-navy-700);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-glow);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track,
+  .marquee-track-rev {
+    animation: none !important;
+  }
+}
+
+/* ——— Typographie ——— */
+/* Lettres en contour : le trait doit avoir sa propre couleur (currentColor serait transparent). */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-navy-900);
+  transition:
+    color 0.3s ease,
+    -webkit-text-stroke-color 0.3s ease;
+}
+.text-outline:hover {
+  color: var(--color-navy-900);
+}
+
+.text-shine {
+  background-image: linear-gradient(100deg, #ffffff 10%, #9cc2ff 45%, #4f8cff 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-glass-gold {
+  background-image: linear-gradient(
+    118deg,
+    rgba(255, 244, 214, 0.2) 8%,
+    rgba(212, 175, 110, 0.1) 38%,
+    rgba(255, 252, 240, 0.28) 52%,
+    rgba(196, 154, 80, 0.08) 78%,
+    rgba(255, 236, 190, 0.16) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255, 236, 190, 0.08));
+}
+
+/* ——— Scènes sombres ——— */
+.stage {
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 0%, rgba(47, 111, 224, 0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 45% at 0% 100%, rgba(28, 79, 147, 0.5) 0%, transparent 60%),
+    linear-gradient(170deg, #0d2a52 0%, #081a33 45%, #040b17 100%);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.surface {
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-card);
+}
+
+.accent-bar {
+  height: 3px;
+  width: 2.5rem;
+  border-radius: 999px;
+  background: var(--color-glow);
+}
+
+/* ——— Défilement infini ——— */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 46s linear infinite;
+}
+.marquee-track-rev {
+  display: flex;
+  width: max-content;
+  animation: marquee-rev 54s linear infinite;
+}
+.marquee-track:hover,
+.marquee-track-rev:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-rev {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(127, 176, 255, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(127, 176, 255, 0);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-out infinite;
+}
+
+.scroll-slim::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: rgba(6, 18, 36, 0.2);
+  border-radius: 999px;
+}
+.scroll-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes dialog-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes toast-slide {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.dialog-pop {
+  animation: dialog-pop 0.22s ease both;
+}
+.toast-slide {
+  animation: toast-slide 0.28s ease both;
+}
+
+/* ——— Compat admin (bleu marine) ——— */
+.grad-brand {
+  background-image: linear-gradient(135deg, #1c4f93 0%, #081a33 100%);
+}
+.grad-mint {
+  background-image: linear-gradient(135deg, #2d8a6a 0%, #1f6a50 100%);
+}
+.grad-sky {
+  background-image: linear-gradient(135deg, #3f78d6 0%, #143b72 100%);
+}
+.grad-sunset {
+  background-image: linear-gradient(135deg, #5b7fb5 0%, #2c4a78 100%);
+}
+.grad-blush {
+  background-image: linear-gradient(135deg, #c23b55 0%, #9a2540 100%);
+}
+.grad-night {
+  background-image: linear-gradient(170deg, #0d2a52 0%, #040b17 100%);
+}
+.mesh-hero {
+  background-color: #081a33;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 80% 0%, rgba(47, 111, 224, 0.3) 0%, transparent 60%),
+    linear-gradient(165deg, #0d2a52 0%, #081a33 50%, #040b17 100%);
+}
+.hero-architecture {
+  background: none;
+}
+.gold-rule {
+  height: 3px;
+  width: 3rem;
+  border-radius: 999px;
+  background: var(--color-glow);
+}
+.glass-panel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+}
+.card-live {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-card);
+}
+
+.print-only {
+  display: none;
+}
+.print-only-block {
+  display: none;
+}
+@media print {
+  body {
+    background: white !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: inline !important;
+  }
+  .print-only-block {
+    display: block !important;
+  }
+}
